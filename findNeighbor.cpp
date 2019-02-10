@@ -4,7 +4,18 @@
 
 int main(){
 	int map[16][10] = {0}; //arraylerin aktarilacagi harita tanimlandi ve hepsi sifira set edildi
-	readFromTextFile(map);
+	string makeUrChoice;
+	cout << "Text filedan okumak icin 1'e test vektorunu kullanmak icin 2'ye basin ve ardindan Enter'a basin" << endl;
+	cin >> makeUrChoice;
+	if(makeUrChoice == "1")
+		readFromTextFile(map);
+	else if(makeUrChoice == "2")
+		testVektor(map);
+	else{
+		cout << "uuups yanlis bir tusa basildi programdan cikiliyor...." << endl;
+		exit(0);
+	}
+
 	scanArray(map);
 
 	return 0;
@@ -80,5 +91,30 @@ void readFromTextFile(int map[16][10]){
 			}
 		}
 	}
+	cout << endl << endl << "Girilen data asagidaki gibidir" << endl << endl;
+
+	for (int i = 0; i < 10; ++i){
+		for (int j = 0; j < 16; ++j){
+			cout<<map[j][i];
+		}
+		cout << endl;
+	}
+
+	cout << endl <<endl;
     myFile.close();
+}
+
+void testVektor(int map[16][10]){
+	cout << "Olusturulan test vektoru: " << endl;
+
+	for(int i = 0; i<10 ; i++){
+		for(int j=0;j<16;j++){
+			map[j][i]=rand() %2;
+			cout << map[j][i];
+		}
+		cout<< endl;
+	}
+	cout<<endl;
+
+
 }
