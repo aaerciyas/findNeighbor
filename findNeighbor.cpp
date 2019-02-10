@@ -3,7 +3,7 @@
 // i satir ======= j sutun
 
 int main(){
-	int map[16][10] = {0}; //arraylerin aktarilacagi harita tanimlandi ve hepsi sifira set edildi
+	int map[COLOMN][ROW] = {0}; //arraylerin aktarilacagi harita tanimlandi ve hepsi sifira set edildi
 	string makeUrChoice;
 	cout << "Text filedan okumak icin 1'e test vektorunu kullanmak icin 2'ye basin ve ardindan Enter'a basin" << endl;
 	cin >> makeUrChoice;
@@ -22,10 +22,10 @@ int main(){
 }
 
 
-void scanArray(int map[16][10]){
+void scanArray(int map[COLOMN][ROW]){
 	int groupCounter = 1;
-	for(int i = 0; i<10 ; i++){
-		for(int j=0;j<16;j++){
+	for(int i = 0; i<ROW ; i++){
+		for(int j=0;j<COLOMN;j++){
 			if(map[j][i]==1){
 				groupCounter = groupCounter+1;
 				map[j][i]=groupCounter;		//bulunmasi durumunda kacinci grup ise ona gore grup numarasi ile 1 yerine yaziliyor
@@ -34,9 +34,9 @@ void scanArray(int map[16][10]){
 			}
 	}
 	#ifdef DEBUG
-		for (int i = 0; i < 10; ++i)
+		for (int i = 0; i < ROW; ++i)
 		{
-			for (int j = 0; j < 16; ++j)
+			for (int j = 0; j < COLOMN; ++j)
 			{
 				if(map[j][i] == 0)
 					cout<<map[j][i];
@@ -51,35 +51,35 @@ void scanArray(int map[16][10]){
 }
 
 
-void compareOthers(int i,int j,int map[16][10],int counter){
+void compareOthers(int i,int j,int map[COLOMN][ROW],int counter){
 	#ifdef DEBUG
 		cout << "satir: " << i << "    " << "sutun: " << j << "    "  <<"grup: " << counter - 1 << endl; 
 	#endif
-	if(map[j+1][i] == 1 && ((i*16+j) % 16 != 1 || j < 16)){
+	if(map[j+1][i] == 1 && ((i*COLOMN+j) % COLOMN != 1 || j < COLOMN)){
 		// bulunan satirin sagindaki
 		map[j+1][i] = counter;
 		compareOthers(i,j+1,map,counter);
 	}	
-	if(map[j-1][i] == 1 && (i*16+j) % 16 != 0){		//bulunan satirin solundaki
+	if(map[j-1][i] == 1 && (i*COLOMN+j) % COLOMN != 0){		//bulunan satirin solundaki
 		map[j-1][i] = counter;
 		compareOthers(i,j-1,map,counter);
 	}
-	if(map[j][i+1] == 1 && (i*16+j) < 144  ){	//bulunan sutunun altindaki
+	if(map[j][i+1] == 1 && (i*COLOMN+j) < ((ROW-1) * COLOMN)  ){	//bulunan sutunun altindaki
 		map[j][i+1] = counter;
 		compareOthers(i+1,j,map,counter);
 	}
-	if(map[j][i-1] == 1 && (i*16+j) > 15){		//bulunan sutunun ustundeki
+	if(map[j][i-1] == 1 && (i*COLOMN+j) > (COLOMN - 1)){		//bulunan sutunun ustundeki
 		map[j][i-1] = counter;
 		compareOthers(i-1,j,map,counter);	
 	}	
 }
 
-void readFromTextFile(int map[16][10]){
+void readFromTextFile(int map[COLOMN][ROW]){
 	ifstream myFile ("text"); //arrayin okunacagi dosya
 	char c; 	//karakter karakter okunarak 1 ise c charindan arrayimize aktarilacak
-	for(int satC = 0; satC < 10; satC++)
+	for(int satC = 0; satC < ROW; satC++)
 	{	
-		for(int sutC = 0;sutC < 16; sutC++){
+		for(int sutC = 0;sutC < COLOMN; sutC++){
 			myFile.get(c);
 			
 			if(c == '\n'){ 			// new line ignore ediliyor
@@ -93,8 +93,8 @@ void readFromTextFile(int map[16][10]){
 	}
 	cout << endl << endl << "Girilen data asagidaki gibidir" << endl << endl;
 
-	for (int i = 0; i < 10; ++i){
-		for (int j = 0; j < 16; ++j){
+	for (int i = 0; i < ROW; ++i){
+		for (int j = 0; j < COLOMN; ++j){
 			cout<<map[j][i];
 		}
 		cout << endl;
@@ -104,11 +104,11 @@ void readFromTextFile(int map[16][10]){
     myFile.close();
 }
 
-void testVektor(int map[16][10]){
+void testVektor(int map[COLOMN][ROW]){
 	cout << "Olusturulan test vektoru: " << endl;
 	srand(time(NULL));
-	for(int i = 0; i<10 ; i++){
-		for(int j=0;j<16;j++){
+	for(int i = 0; i<ROW ; i++){
+		for(int j=0;j<COLOMN;j++){
 			map[j][i]=rand() %2;
 			cout << map[j][i];
 		}

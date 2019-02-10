@@ -3,7 +3,9 @@
 
 using namespace std;
 
-void readFromTextFile(int map[16][10]);
-void scanArray(int map[16][10]);
-void compareOthers(int i,int j,int map[16][10],int counter);
-void testVektor(int map[16][10]);
+#define COLOMN 16
+#define ROW 10
+void readFromTextFile(int map[COLOMN][ROW]);
+void scanArray(int map[COLOMN][ROW]);
+void compareOthers(int i,int j,int map[COLOMN][ROW],int counter);
+void testVektor(int map[COLOMN][ROW]);
