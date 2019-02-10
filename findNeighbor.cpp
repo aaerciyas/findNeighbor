@@ -1,5 +1,7 @@
 #include "findNeighbor.h"
 
+// i satir ======= j sutun
+
 int main(){
 	int map[16][10] = {0}; //arraylerin aktarilacagi harita tanimlandi ve hepsi sifira set edildi
 	readFromTextFile(map);
@@ -12,7 +14,32 @@ int main(){
 		cout << endl;
 		}
 		cout << endl<<endl;
+
+
+	scanArray(map);
 	return 0;
+}
+
+
+void scanArray(int map[16][10]){
+	int groupCounter = 0;
+	for(int i = 0; i<10 ; i++){
+		for(int j=0;j<16;j++){
+			if(map[j][i]==1){
+				groupCounter = groupCounter+1;
+				map[j][i]=groupCounter;		//bulunmasi durumunda kacinci grup ise ona gore grup numarasi ile 1 yerine yaziliyor
+				compareOthers(i,j,map,groupCounter); //komsular bulunuyor
+			}
+
+
+			}
+	}
+}
+
+
+void compareOthers(int i,int j,int map[16][10],int counter){
+	//cout is just for test
+	cout << "bulunan dolu bolge sayisi: " << counter << endl;	
 }
 
 void readFromTextFile(int map[16][10]){
