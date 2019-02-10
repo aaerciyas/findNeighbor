@@ -106,7 +106,7 @@ void readFromTextFile(int map[16][10]){
 
 void testVektor(int map[16][10]){
 	cout << "Olusturulan test vektoru: " << endl;
-
+	srand(time(NULL));
 	for(int i = 0; i<10 ; i++){
 		for(int j=0;j<16;j++){
 			map[j][i]=rand() %2;
