@@ -21,7 +21,7 @@ int main(){
 
 
 void scanArray(int map[16][10]){
-	int groupCounter = 0;
+	int groupCounter = 1;
 	for(int i = 0; i<10 ; i++){
 		for(int j=0;j<16;j++){
 			if(map[j][i]==1){
@@ -31,25 +31,26 @@ void scanArray(int map[16][10]){
 			}
 			}
 	}
+	cout << "Bulunan grup sayisi: " << groupCounter  - 1	 << endl;
 }
 
 
 void compareOthers(int i,int j,int map[16][10],int counter){
-	if(map[j+1][i] == 1 && ((i*16+j) % 16 != 1)){
+	if(map[j+1][i] == 1 && ((i*16+j) % 16 != 1 || j < 16)){
 		// bulunan satirin sagindaki
-		map[j+1][i] = counter;
+		map[j+1][i] = 0;
 		compareOthers(i,j+1,map,counter);
 	}	
 	if(map[j-1][i] == 1 && (i*16+j) % 16 != 0){		//bulunan satirin solundaki
-		map[j-1][i] = counter;
+		map[j-1][i] = 0;
 		compareOthers(i,j-1,map,counter);
 	}
 	if(map[j][i+1] == 1 && (i*16+j) < 144  ){	//bulunan sutunun altindaki
-		map[j][i+1] = counter;
+		map[j][i+1] = 0;
 		compareOthers(i+1,j,map,counter);
 	}
 	if(map[j][i-1] == 1 && (i*16+j) > 15){		//bulunan sutunun ustundeki
-		map[j][i-1] = counter;
+		map[j][i-1] = 0;
 		compareOthers(i-1,j,map,counter);	
 	}	
 }
