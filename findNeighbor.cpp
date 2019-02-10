@@ -5,6 +5,7 @@
 int main(){
 	int map[16][10] = {0}; //arraylerin aktarilacagi harita tanimlandi ve hepsi sifira set edildi
 	readFromTextFile(map);
+	scanArray(map);
 	//print just for test
 	//remove it later
 	for (int i = 0; i < 10; ++i){
@@ -15,8 +16,6 @@ int main(){
 		}
 		cout << endl<<endl;
 
-
-	scanArray(map);
 	return 0;
 }
 
@@ -30,22 +29,34 @@ void scanArray(int map[16][10]){
 				map[j][i]=groupCounter;		//bulunmasi durumunda kacinci grup ise ona gore grup numarasi ile 1 yerine yaziliyor
 				compareOthers(i,j,map,groupCounter); //komsular bulunuyor
 			}
-
-
 			}
 	}
 }
 
 
 void compareOthers(int i,int j,int map[16][10],int counter){
-	//cout is just for test
-	cout << "bulunan dolu bolge sayisi: " << counter << endl;	
+	if(map[j+1][i] == 1 && ((i*16+j) % 16 != 1)){
+		// bulunan satirin sagindaki
+		map[j+1][i] = counter;
+		compareOthers(i,j+1,map,counter);
+	}	
+	if(map[j-1][i] == 1 && (i*16+j) % 16 != 0){		//bulunan satirin solundaki
+		map[j-1][i] = counter;
+		compareOthers(i,j-1,map,counter);
+	}
+	if(map[j][i+1] == 1 && (i*16+j) < 144  ){	//bulunan sutunun altindaki
+		map[j][i+1] = counter;
+		compareOthers(i+1,j,map,counter);
+	}
+	if(map[j][i-1] == 1 && (i*16+j) > 15){		//bulunan sutunun ustundeki
+		map[j][i-1] = counter;
+		compareOthers(i-1,j,map,counter);	
+	}	
 }
 
 void readFromTextFile(int map[16][10]){
 	ifstream myFile ("text"); //arrayin okunacagi dosya
 	char c; 	//karakter karakter okunarak 1 ise c charindan arrayimize aktarilacak
-	//myFile.ignore('\n');
 	for(int satC = 0; satC < 10; satC++)
 	{	
 		for(int sutC = 0;sutC < 16; sutC++){
